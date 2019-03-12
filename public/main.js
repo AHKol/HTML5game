@@ -38,7 +38,9 @@ function drawTriangle(x,y,angle,scale){
  */
 function drawCircle(x,y,scale){
     ctx.save();
+    ctx.beginPath();
     ctx.arc(x, y, scale/2, 0, 2 * Math.PI);
+    ctx.stroke(); 
     ctx.fill();
     ctx.restore();
 }
