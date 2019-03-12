@@ -1,12 +1,4 @@
-var canvas = document.getElementById("canvas");
-
-var ctx = canvas.getContext('2d');
-drawTriangle(50,50,0,100);
-setInterval(update, 10000/30);
-
-function update(){
-
-}
+//Draw Primaive Shapes
 
 /**
  * Display a black triangle in ctx
@@ -41,7 +33,59 @@ function drawTriangle(x,y,angle,scale){
 
     ctx.restore()
 }
-
 function drawCircle(x,y,scale){
 
 }
+
+//Define on scren objects
+
+class Shape {
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+    }
+    update(){
+    }
+    transit(targetX,targetY,speed) {
+        //normalize vector then multiply x, y, by speed
+        var vX = targetX - this.x;
+        var vY = targetY - this.y;
+        var magnitude = Math.sqrt(vX * vX + vY * vY);
+        //normalize vector
+        vX /= magnitude;
+        vY /= magnitude;
+        //set new position of shape
+        this.x += vX * speed;
+        this.y += vY * speed;
+    }
+}
+class Planet extends Shape {
+    constructor(x,y){
+        super(x,y);
+    }
+    update(){
+
+    }
+}
+class Ship extends Shape{
+    constructor(x,y){
+        super(x,y);
+    }
+    update(){
+        super.transit(500,75, 10);
+        drawTriangle(this.x,this.y,0,100);
+    }
+}
+
+//Startup
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext('2d');
+spaceShip = new Ship(50,50);
+setInterval(update, 1000/16);
+
+function update(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    spaceShip.update();
+    console.log("loop");
+}
+
