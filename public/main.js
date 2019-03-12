@@ -20,21 +20,27 @@ function drawTriangle(x,y,angle,scale){
     ctx.translate(x,y);
     ctx.rotate(rotation);
 
-    ctx.fillStyle = "rgba(0, 0, 0, 255)";
-    ctx.strokeStyle = "#000000";
-
     ctx.beginPath();
     ctx.moveTo(v[0][0],v[0][1]);
     ctx.lineTo(v[1][0],v[1][1]);
     ctx.lineTo(v[2][0],v[2][1]);
     ctx.closePath();
-    //ctx.stroke();
     ctx.fill();
 
     ctx.restore()
 }
-function drawCircle(x,y,scale){
 
+/**
+ * Display a black circle in ctx
+ * @param  {Number} x X coordiante
+ * @param  {Number} y Y coordinate
+ * @param  {Number} scale diamater in pixels, roghly
+ */
+function drawCircle(x,y,scale){
+    ctx.save();
+    ctx.arc(x, y, scale/2, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.restore();
 }
 
 //Define on scren objects
@@ -46,7 +52,7 @@ class Shape {
     }
     update(){
     }
-    transit(targetX,targetY,speed) {
+    translate(targetX,targetY,speed) {
         //normalize vector then multiply x, y, by speed
         var vX = targetX - this.x;
         var vY = targetY - this.y;
@@ -72,7 +78,7 @@ class Ship extends Shape{
         super(x,y);
     }
     update(){
-        super.transit(500,75, 10);
+        super.translate(500,75, 1);
         drawTriangle(this.x,this.y,0,100);
     }
 }
@@ -81,10 +87,13 @@ class Ship extends Shape{
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
 spaceShip = new Ship(50,50);
-setInterval(update, 1000/16);
+setInterval(update, 1000/60);
 
+//main loop
 function update(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawCircle(0,100,75);
+    drawCircle(200,100,75);
     spaceShip.update();
     console.log("loop");
 }
