@@ -5,7 +5,7 @@
  * @param  {Number} x X coordiante
  * @param  {Number} y Y coordinate
  * @param  {Number} angle Degrees rotated clockwise, up is 0
- * @param  {Number} scale Length in pixels, roghly
+ * @param  {Number} scale Length in pixels, roughly
  */
 function drawTriangle(x,y,angle,scale){
     scale = scale / 10;
@@ -34,13 +34,13 @@ function drawTriangle(x,y,angle,scale){
  * Display a black circle in ctx
  * @param  {Number} x X coordiante
  * @param  {Number} y Y coordinate
- * @param  {Number} scale diamater in pixels, roghly
+ * @param  {Number} scale diamater in pixels, roughly
  */
 function drawCircle(x,y,scale){
     ctx.save();
     ctx.beginPath();
     ctx.arc(x, y, scale/2, 0, 2 * Math.PI);
-    ctx.stroke(); 
+    ctx.stroke();
     ctx.fill();
     ctx.restore();
 }
@@ -80,22 +80,22 @@ class Ship extends Shape{
         super(x,y);
     }
     update(){
-        super.translate(500,75, 1);
-        drawTriangle(this.x,this.y,0,100);
+        super.translate(600,75, 1);
+        drawTriangle(this.x,this.y,90,50);
     }
 }
 
 //Startup
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
-spaceShip = new Ship(50,50);
+spaceShip = new Ship(0,75);
 setInterval(update, 1000/60);
 
 //main loop
 function update(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawCircle(0,100,75);
-    drawCircle(200,100,75);
+    drawCircle(0,75,75);
+    drawCircle(500,75,75);
     spaceShip.update();
     console.log("loop");
 }
