@@ -78,8 +78,10 @@ class Planet extends Shape {
 class Ship extends Shape{
     constructor(x,y){
         super(x,y);
+        this.state = 0;
     }
     update(){
+
         super.translate(600,75, 1);
         drawTriangle(this.x,this.y,90,50);
     }
@@ -89,10 +91,13 @@ class Ship extends Shape{
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
 spaceShip = new Ship(0,75);
-setInterval(update, 1000/60);
+update();
 
 //main loop
+//TODO: rewrite to use requestAnimationFrame
 function update(){
+    requestAnimationFrame(update);
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawCircle(0,75,75);
     drawCircle(500,75,75);
