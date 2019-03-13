@@ -1,3 +1,5 @@
+//TODO: use dx as x velocity ect
+
 //Draw Primaive Shapes
 
 /**
@@ -76,13 +78,23 @@ class Planet extends Shape {
     }
 }
 class Ship extends Shape{
+    //Idle = 0
+    //In Transit = 1
+    //In production = 2
     constructor(x,y){
         super(x,y);
         this.state = 0;
     }
     update(){
+        //TODO: Make this a switch
+        if(this.state == 0){
+            this.state = 1;
+            this.target = {x: 500, y: 75};
+        }
+        if(this.state == 1){
 
-        super.translate(600,75, 1);
+            super.translate(this.target.x,this.target.y, 1);
+        }
         drawTriangle(this.x,this.y,90,50);
     }
 }
