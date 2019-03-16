@@ -1,6 +1,8 @@
-//TODO: use dx as x velocity ect
+//TODO: Use dx as x velocity ect
+//TODO: Make Planets clickable/transversable
+//TODO: Add lables
 
-//Draw Primaive Shapes
+//Draw Primive Shapes
 
 /**
  * Display a black triangle in ctx
@@ -58,9 +60,9 @@ class Shape {
     }
     translate(targetX,targetY,speed) {
         //normalize vector then multiply x, y, by speed
-        var vX = targetX - this.x;
-        var vY = targetY - this.y;
-        var magnitude = Math.sqrt(vX * vX + vY * vY);
+        let vX = targetX - this.x;
+        let vY = targetY - this.y;
+        let magnitude = Math.sqrt(vX * vX + vY * vY);
         //normalize vector
         vX /= magnitude;
         vY /= magnitude;
@@ -83,20 +85,34 @@ class Ship extends Shape{
     //In production = 2
     constructor(x,y){
         super(x,y);
-        this.state = 0;
-    }
+        this.state = 1;
+        this.target = {x: 500, y: 75};
+    };
+    setTarget(x, y) {
+        if(this.state == 0){
+            this.state = 1;
+            this.target.x = x;
+            this.target.y = y;
+        }
+    };
+    test() {
+        console.log("test");
+    };
     update(){
         //TODO: Make this a switch
         if(this.state == 0){
-            this.state = 1;
-            this.target = {x: 500, y: 75};
         }
         if(this.state == 1){
-
-            super.translate(this.target.x,this.target.y, 1);
+            //TODO, use speed * 2 as the target size
+            if( (5 > Math.abs(this.x - this.target.x)) && (5 > Math.abs(this.y - this.target.y)) ) {
+                this.state = 0;
+                console.log("DONE");
+            } else {
+                super.translate(this.target.x,this.target.y, 1);
+            }
         }
-        drawTriangle(this.x,this.y,90,50);
-    }
+        drawTriangle(this.x,this.y,90,25);
+    };
 }
 
 //Startup
@@ -111,9 +127,21 @@ function update(){
     requestAnimationFrame(update);
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     drawCircle(0,75,75);
     drawCircle(500,75,75);
     spaceShip.update();
     console.log("loop");
 }
 
+//Mouse event listener
+window.addEventListener("click", (event) => {
+    console.log("clicked at " + event.clientX + " " + event.clientY );
+    //send target position to ship
+    spaceShip.setTarget(event.clientX, event.clientY);
+
+    //Todo: Loop through shapes array and click the closest one if < some px range
+
+
+    spaceShip.test();
+})
