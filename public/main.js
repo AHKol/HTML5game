@@ -1,6 +1,7 @@
 //TODO: Use dx as x velocity ect
 //TODO: Make Planets clickable/transversable
-//TODO: Add lables
+//TODO: Add lables looks like ( /-Description )
+//TODO: Document this crp
 
 //Draw Primive Shapes
 
@@ -72,6 +73,7 @@ class Shape {
     }
 }
 class Planet extends Shape {
+    //Todo: Behaviour: Make ship only travel from planet to planet, click 2 planets and ship will traverse
     constructor(x,y){
         super(x,y);
     }
@@ -80,6 +82,9 @@ class Planet extends Shape {
     }
 }
 class Ship extends Shape{
+    //Todo: Point ship at travel direction
+    //Todo: Show details on click
+
     //Idle = 0
     //In Transit = 1
     //In production = 2
