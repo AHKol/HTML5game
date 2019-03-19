@@ -35,7 +35,7 @@ function drawTriangle(x,y,angle,scale){
     ctx.restore()
 }
 
-function drawLable(x,y,text){
+function drawLable(x,y,...args){
     ctx.save()
 
     ctx.beginPath();
@@ -45,6 +45,10 @@ function drawLable(x,y,text){
     ctx.stroke();
 
     ctx.restore()
+
+    ctx.font = "10px Arial";
+    ctx.fillText(args[0], x + 35, y - 15);
+    ctx.fillText(args[1], x + 35, y - 5);
 }
 
 /**
@@ -118,7 +122,7 @@ class Ship extends Shape{
     update(){
         //TODO: Make this a switch
         if(this.state == 0){
-            drawLable(this.x + 10,this.y - 10);
+            drawLable(this.x + 10,this.y - 10, "Words Words", "Words Words");
         }
         if(this.state == 1){
             //TODO, use speed * 2 as the target size
