@@ -35,6 +35,18 @@ function drawTriangle(x,y,angle,scale){
     ctx.restore()
 }
 
+function drawLable(x,y,text){
+    ctx.save()
+
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(x+10,y -10);
+    ctx.lineTo(x+30,y -10);
+    ctx.stroke();
+
+    ctx.restore()
+}
+
 /**
  * Display a black circle in ctx
  * @param  {Number} x X coordiante
@@ -91,7 +103,7 @@ class Ship extends Shape{
     constructor(x,y){
         super(x,y);
         this.state = 1;
-        this.target = {x: 500, y: 75};
+        this.target = {x: 200, y: 100};
     };
     setTarget(x, y) {
         if(this.state == 0){
@@ -106,6 +118,7 @@ class Ship extends Shape{
     update(){
         //TODO: Make this a switch
         if(this.state == 0){
+            drawLable(this.x + 10,this.y - 10);
         }
         if(this.state == 1){
             //TODO, use speed * 2 as the target size
@@ -136,7 +149,7 @@ function update(){
     drawCircle(0,75,75);
     drawCircle(500,75,75);
     spaceShip.update();
-    console.log("loop");
+
 }
 
 //Mouse event listener
@@ -144,7 +157,6 @@ window.addEventListener("click", (event) => {
     console.log("clicked at " + event.clientX + " " + event.clientY );
     //send target position to ship
     spaceShip.setTarget(event.clientX, event.clientY);
-
     //Todo: Loop through shapes array and click the closest one if < some px range
 
 
