@@ -1,6 +1,5 @@
 //TODO: Use dx as x velocity ect
 //TODO: Make Planets clickable/transversable
-//TODO: Add lables looks like ( /-Description )
 //TODO: Document this crp
 
 //Draw Primive Shapes
@@ -133,7 +132,11 @@ class Ship extends Shape{
                 super.translate(this.target.x,this.target.y, 1);
             }
         }
-        drawTriangle(this.x,this.y,90,25);
+
+        //get direction
+        var angle = Math.atan2(this.y - this.target.y, this.x - this.target.x);
+        var degrees = 180*angle/Math.PI;
+        drawTriangle(this.x,this.y,degrees + 270,25);
     };
 }
 
