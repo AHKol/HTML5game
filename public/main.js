@@ -1,6 +1,7 @@
 //TODO: Use dx as x velocity ect
 //TODO: Make Planets clickable/transversable
 //TODO: Document this crp
+//TODO: Bug, ship 'center' x pixels to left of front
 
 //Draw Primive Shapes
 
@@ -86,6 +87,13 @@ class Shape {
         this.x += vX * speed;
         this.y += vY * speed;
     }
+    dist(testX,testY){
+        let vX = testX - this.x;
+        let vY = testY - this.y;
+
+        let magnitude = Math.sqrt(vX * vX + vY * vY);
+        return magnitude;
+    }
 }
 class Planet extends Shape {
     //Todo: Behaviour: Make ship only travel from planet to planet, click 2 planets and ship will traverse
@@ -97,7 +105,6 @@ class Planet extends Shape {
     }
 }
 class Ship extends Shape{
-    //Todo: Point ship at travel direction
     //Todo: Show details on click
 
     //Idle = 0
@@ -114,9 +121,6 @@ class Ship extends Shape{
             this.target.x = x;
             this.target.y = y;
         }
-    };
-    test() {
-        console.log("test");
     };
     update(){
         //TODO: Make this a switch
@@ -143,7 +147,9 @@ class Ship extends Shape{
 //Startup
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
-spaceShip = new Ship(0,75);
+var objects = [];
+objects.push(new Ship(0,75));
+
 update();
 
 //main loop
@@ -155,7 +161,7 @@ function update(){
 
     drawCircle(0,75,75);
     drawCircle(500,75,75);
-    spaceShip.update();
+    objects[0].update();
 
 }
 
@@ -163,9 +169,9 @@ function update(){
 window.addEventListener("click", (event) => {
     console.log("clicked at " + event.clientX + " " + event.clientY );
     //send target position to ship
-    spaceShip.setTarget(event.clientX, event.clientY);
+    objects[0].setTarget(event.clientX, event.clientY);
     //Todo: Loop through shapes array and click the closest one if < some px range
 
 
-    spaceShip.test();
+    console.log(objects[0].dist(event.clientX,event.clientY));
 })
